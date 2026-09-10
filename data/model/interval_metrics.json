@@ -20,15 +20,15 @@
     "mean_width_dollars_val": 0.11609335313187652,
     "coverage_80_test": 0.8099173553719008,
     "mean_width_log_test": 1.611949504034004,
-    "mean_width_dollars_test": 0.12169566390289555
+    "mean_width_dollars_test": 0.12169566390289556
   },
   "gb_tuned_residual": {
-    "sigma_res_train": 0.28063652428164493,
-    "coverage_80_val": 0.7638888888888888,
-    "mean_width_log_val": 0.9232120096394371,
-    "mean_width_dollars_val": 0.08292026059565415,
-    "coverage_80_test": 0.743801652892562,
-    "mean_width_log_test": 0.9232120096394371,
-    "mean_width_dollars_test": 0.09357815947349249
+    "sigma_res_train": 0.33574612408008325,
+    "coverage_80_val": 0.8518518518518519,
+    "mean_width_log_val": 1.1045064598560475,
+    "mean_width_dollars_val": 0.10092414952750618,
+    "coverage_80_test": 0.8181818181818182,
+    "mean_width_log_test": 1.1045064598560477,
+    "mean_width_dollars_test": 0.11466567906475233
   }
 }

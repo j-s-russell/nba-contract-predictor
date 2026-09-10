@@ -70,6 +70,7 @@ One row per market deal (free agency / extension / offer sheet / RFA match / sig
 - `player_option` — 1 if the contract includes a player option.
 - `team_option` — 1 if the contract includes a team option.
 - `max_tier_pct` — Max-salary tier the player is eligible for (0.25 / 0.30 / 0.35).
+- `max_tier_aav_pct` — Max deal AAV ceiling (tier adjusted for 8% annual raises; used as Tobit censoring limit, not a model feature).
 - `supermax` — 1 if the contract is a designated / supermax deal.
 - `outstanding_options` — Count of future options on the deal.
 

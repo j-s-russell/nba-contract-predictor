@@ -36,6 +36,7 @@
     "incumbent",
     "player_option",
     "max_tier_pct",
+    "max_tier_aav_pct",
     "supermax",
     "outstanding_options",
     "prior_team_big_market",
@@ -212,7 +213,7 @@
     "redundancy_r": 0.85,
     "weak_corr": 0.1
   },
-  "estimator": "ElasticNetCV (standardized), alpha x l1_ratio grid, 5-fold CV on train",
+  "estimator": "ElasticNetCV (standardized), alpha x l1_ratio grid, expanded-window walk-forward CV on train",
   "notes": [
     "Selection is deterministic + editable (see sections 3-4): layer 1 redundancy (|r|>=0.85), layer 2 weak target correlation (<0.10).",
     "linear_interpretable (controls + KEPT_STATS) is the chosen model even though all-stats scores marginally better; linear_all_stats is the performance ceiling reference.",

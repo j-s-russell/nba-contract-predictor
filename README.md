@@ -3,9 +3,10 @@
 Predict NBA contract value (average annual value as a share of the signing-season
 salary cap) from prior-season production, physicals, deal terms, and team/market
 context. The project runs a leakage-controlled pipeline: baselines, a regularized
-linear model with a documented two-layer feature selection, tree ensembles
-tuned by walk-forward CV, ceiling-aware models (Tobit / Heckman), and quantile-
-regression prediction intervals. `REPORT.ipynb` is the final summary; it also
+linear model (ElasticNet) with a documented two-layer feature selection, tree
+ensembles and quantile-regression intervals tuned by expanding-window
+walk-forward CV, and ceiling-aware models (Tobit) with a Heckman selection
+correction considered but declined. `REPORT.ipynb` is the final summary; it also
 answers two context questions — whether market size drives pay and whether
 players take below-market deals to join contending teams — using coefficient
 paths across the linear, ceiling-aware, and tree models.
@@ -41,8 +42,11 @@ paths across the linear, ceiling-aware, and tree models.
 4. `REPORT.ipynb` reads the saved artifacts and renders the final report.
 
 Leakage controls: player stats are prior-season, team context is signing season
-only, hyperparameters are selected by expanding-window walk-forward CV inside the
-train window, and val/test never influence any fit.
+only, and val/test never influence any fit. All hyperparameters/penalties are
+selected inside the train window by expanding-window walk-forward CV (folds order
+deals by year, so no future-year deal tunes a penalty for past years): the linear
+family's ElasticNet penalty, the tree ensembles' and quantile models' hyperparams,
+and the nested alpha selection in the MODEL 03 linear walk-forward reference.
 
 ## Models
 
@@ -54,23 +58,24 @@ train window, and val/test never influence any fit.
   controls + 24 chosen stats. Position enters as a structural control.
 - Ensembles: Random Forest and Gradient Boosting, default and walk-forward-tuned,
   on the canonical set.
-- Ceiling-aware: Tobit MLE and two-stage Heckman for the right-censored max-tier
-  ceiling (diagnostics in `data/model/ceiling_metrics.json`).
+- Ceiling-aware: Tobit MLE for the right-censored max-tier ceiling (details in
+  `data/model/ceiling_metrics.json`). A two-stage Heckman was declined - the
+  Probit is near-separated (15 censored train rows vs 59+1 regressors),
+  the Hessian does not invert, so no rho*sigma / p-value is reported.
 - Intervals: quantile regression (tau in {0.10, 0.50, 0.90}) versus a naive
   gb-residual interval (metrics in `data/model/interval_metrics.json`).
 
 ## Key results (val)
 
-- Best model: `rf_tuned` log-RMSE 0.410, R2 0.845 (test 0.396, R2 0.861).
-- Chosen interpretable model: `linear_interpretable` log-RMSE 0.440; the
-  interpretability cost versus the all-stats ceiling (0.421) is about 0.019.
+- Best model: `rf_tuned` log-RMSE 0.399, R2 0.849 (test 0.424, R2 0.811).
+- Chosen interpretable model: `linear_interpretable` log-RMSE 0.470.
 - Position x stat interactions add nothing (delta ~0); raw box-score stats are
   noise beyond the position-normalized composites (PER/BPM/VORP/WS).
 - Market size does not drive pay once player/team quality is controlled (ElasticNet
-  shrinks all market features to 0; OLS/Tobit/Heckman coefficients are individually
+  shrinks all market features to 0; OLS/Tobit coefficients are individually
   non-zero but unstable due to multicollinearity; flat tree partial dependence).
 - The contender discount is real but modest: `team_nrtg` coefficient ~ -0.07
-  (chosen ElasticNet) and -0.13 to -0.14 (OLS/Tobit/Heckman); bigger for stars
+  (chosen ElasticNet) and -0.12 to -0.13 (OLS/Tobit); bigger for stars
   (interaction ~ -0.03), identical for re-signings vs movers, and ~0.4% of cap
   per contender deal (details in `data/model/contender_metrics.json`).
 - Quantile [q10, q90] intervals reach 82.9% coverage on val, 75.1% on test.
@@ -100,13 +105,13 @@ if the raw scrapes change.
     results.csv             long-format metrics, one row per model x split
     predictions_*.csv       per-model predictions for every row
     interval_metrics.json   interval coverage / width / pinball
-    ceiling_metrics.json    Tobit, Heckman, market + team-quality coefficients,
-                            quantile crossings
+    ceiling_metrics.json    Tobit, Heckman-declined note, market + team-quality
+                            coefficients, quantile crossings
     contender_metrics.json  Q2 coefficient paths + per-deal discount tables
     features.md             feature-by-feature documentation and timing rules
 
 ## Limitations
 
-The max-tier ceiling is thin (34 cap-bound deals within a 5% band), the Heckman
-correction has no clean exclusion restriction and is diagnostic only, the test
-set is small, and agent/leverage factors are not modeled.
+The max-tier ceiling is thin (22 deals within a relative 3% band; 15 in train),
+a two-stage Heckman selection correction was declined (near-separated Probit);
+the test set is small, and agent/leverage factors are not modeled.

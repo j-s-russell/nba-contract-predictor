@@ -1,49 +1,39 @@
 {
  "tobit": {
-  "neg_ll": 620.2749871557135,
-  "sigma": 0.4786901548879012,
+  "neg_ll": 617.0034788081346,
+  "sigma": 0.47734032750975636,
   "converged": true,
-  "sigma_uncensored_ols": 0.47300738790667085
+  "sigma_uncensored_ols": 0.47300545952561457
  },
  "heckman": {
-  "rho_sigma": 0.00821693535096546,
-  "imr_p": 0.9600237119894688,
-  "stage1_converged": true,
-  "stage1_ll": -30.72517239307506,
-  "uncensored_ols_r2": 0.8264625505159241
+  "declined": "near-separated Probit: 15 censored train rows vs 59+1 regressors; non-invertible Hessian; no rho*sigma / imr_p reported"
  },
  "market_coefficients": {
   "team_market_size_ord": {
-   "ols": -0.10888317263002259,
-   "tobit_latent": -0.11062681395784402,
-   "heckman_latent": -0.12375709593092889
+   "ols": -0.10892964388212445,
+   "tobit_latent": -0.10674034443142719
   },
   "team_big_market": {
-   "ols": 0.0739220234960376,
-   "tobit_latent": 0.07874811999307417,
-   "heckman_latent": 0.08462754247878528
+   "ols": 0.07419514955553112,
+   "tobit_latent": 0.07346193246225068
   },
   "team_metro_pop_m": {
-   "ols": -0.07453386462798191,
-   "tobit_latent": -0.08887044137818761,
-   "heckman_latent": -0.0790962501694209
+   "ols": -0.07456194692217288,
+   "tobit_latent": -0.07461764407275501
   },
   "team_dma_rank": {
-   "ols": -0.06329720420185612,
-   "tobit_latent": -0.06941436175097272,
-   "heckman_latent": -0.07249716548708801
+   "ols": -0.0632962966874958,
+   "tobit_latent": -0.06183616496857567
   }
  },
  "team_quality_coefficients": {
   "team_nrtg": {
-   "ols": -0.12450660646264569,
-   "tobit_latent": -0.1214572009468036,
-   "heckman_latent": -0.13651808096586993
+   "ols": -0.1246021796780258,
+   "tobit_latent": -0.12247891138738265
   },
   "team_made_playoffs": {
-   "ols": 0.015143816904127881,
-   "tobit_latent": 0.013848973349797762,
-   "heckman_latent": 0.028108544986646944
+   "ols": 0.015349673075352092,
+   "tobit_latent": 0.013691515628028696
   }
  },
  "quantile_crossing": {
@@ -52,6 +42,6 @@
  },
  "ceiling_q90_pierce": {
   "n": 12,
-  "of": 35
+  "of": 22
  }
 }

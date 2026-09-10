@@ -258,6 +258,7 @@ def main() -> int:
             "player_option": _int(d, "player_option"),
             "team_option": _int(d, "team_option"),
             "max_tier_pct": _f(d, "max_tier_pct"),
+            "max_tier_aav_pct": _f(d, "max_tier_aav_pct"),
             "supermax": _int(d, "supermax"),
             "outstanding_options": _int(d, "outstanding_options"),
         })
@@ -300,7 +301,7 @@ def main() -> int:
         "recent3_vorp", "recent3_ws",
         "pos",
         "age_at_signing", "height_inches", "weight_lb", "years_pro", "draft_year",
-        "incumbent", "player_option", "team_option", "max_tier_pct", "supermax", "outstanding_options",
+        "incumbent", "player_option", "team_option", "max_tier_pct", "max_tier_aav_pct", "supermax", "outstanding_options",
         "team_srs", "team_nrtg", "team_mov", "team_wins", "team_made_playoffs", "team_champion",
         "team_cap_space_m", "team_active_payroll_m", "team_dead_cap_m", "team_players_active",
         "prior_team",

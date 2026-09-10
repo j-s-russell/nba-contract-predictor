@@ -16,6 +16,7 @@
       "incumbent",
       "player_option",
       "max_tier_pct",
+      "max_tier_aav_pct",
       "supermax",
       "outstanding_options",
       "mid_season"
@@ -110,7 +111,7 @@
     ]
   },
   "n_rows": 1364,
-  "n_features": 80,
+  "n_features": 81,
   "dropped_columns": [
     "aav_m",
     "aav_cap_share",
